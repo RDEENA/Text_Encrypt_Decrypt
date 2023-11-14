@@ -5,9 +5,7 @@ import streamlit.components.v1 as components
 #st.image("upchat_technologies_logo.jpg")
 flag=0
 components.html('''<style> body{padding:20px;}</style><body bgcolor = "powderblue"><h1><center><b>Caesar Cipher</h1></body>''')
-import streamlit as st
 #st.markdown("""<style>body { background-image: url('upchat_technologies_logo.jpg'); background-size: cover;}</style>""", unsafe_allow_html=True)
-
 #st.header("Caesar Cipher")
 st.subheader("Internship project")
 st1 = st.file_uploader("Click here to upload file",type="txt")
@@ -15,11 +13,9 @@ if st1 is not None:
     f_open = st1.read()
     f_open = f_open.decode('utf-8')
     inp = f_open
-
-
-st.markdown("### OR")
-st.subheader("Enter the text")
 if st1 is None:
+   st.markdown("### OR")
+   st.subheader("Enter the text")
    inp = st.text_input("Text")
 opt = st.selectbox("Select the operation",("Encrypt","Decrypt"))
 
@@ -48,9 +44,12 @@ if flag== 2:
    st.success("Encryption done :smiley:")
    enstr = ""
    for i in inp:
-        order = ord(i)
-        order = order+val
-        enstr +=chr(order)
+       if 'A' <= i <= 'Z':
+           enstr += chr(((ord(i) - ord('A') + val) % 26) + ord('A'))
+       elif 'a' <= i <= 'z':
+           enstr += chr(((ord(i) - ord('a') + val) % 26) + ord('a'))
+       else:
+           enstr += i
    st.code(enstr)
 
    st.download_button(
@@ -70,8 +69,11 @@ elif flag==1:
     st.success("Decryption done :smiley:")
     enstr = ""
     for i in inp:
-        order = ord(i)
-        order = order + val1
-        enstr += chr(order)
+        if 'A' <= i <= 'Z':
+            enstr += chr(((ord(i) - ord('A') + val1) % 26) + ord('A'))
+        elif 'a' <= i <= 'z':
+            enstr += chr(((ord(i) - ord('a') + val1) % 26) + ord('a'))
+        else:
+            enstr += i
     st.code(enstr)
     st.download_button(label="Download Decrypted File", data= enstr, help="Click here to download",file_name="Decrypted.txt")
