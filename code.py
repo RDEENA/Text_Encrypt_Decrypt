@@ -12,7 +12,8 @@ def Caesar_Cipher(inp,val):
             enstr += i
     return enstr
 def User_Interface(str1, str2):
-    with st.spinner(text="Please Wait", cache=True):
+   # with st.spinner(text="Please Wait", cache=True):
+    with st.spinner(text="Please Wait"):
         time.sleep(2)
     with st.status(f"{str1} data"):
         time.sleep(2)
